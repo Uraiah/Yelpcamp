@@ -1,0 +1,41 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">YelpCamp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" 
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> <!---bs--> <!--AltMarkup-->
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+       <!-- Wednesday December 21st, 2022 5:10pm -->
+        <div class="navbar-nav"> <!--AltMarkup --><!--I don't know when did Colt make the changes to this one. So, I'm still copying it. -->
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/campgrounds">Campgrounds</a>
+          <a class="nav-link" href="/campgrounds/new">New Campgrounds</a>
+        </div>
+        <div class="navbar-nav ml-auto"> <!--AltMarkup --><!-- Wednesday December 21st, 2022 5:10pm -->
+          <% if(!currentUser) {%>
+          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/register">Register</a>
+          <%} else {%>
+          <a class="nav-link" href="/logout">Logout</a>
+          <%} %>
+        </div>
+        </div>
+    </div> 
+  </nav> 
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/campgrounds">Campgrounds</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/campgrounds/new">New Campgrounds</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>-->
+      <!-- Friday May 27th, 2022 4:36pm -->
+  
+ 

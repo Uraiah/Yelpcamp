@@ -1,0 +1,131 @@
+<% layout ('layouts/boilerplate') %> 
+<link rel="stylesheet" href="/stylesheets/stars.css">
+<!-- Wednesday June 22nd 2022 5:24pm-->
+<div class="row">
+  <div class="col-6"> <!--offset-3--> <!--Maybe remove offset 3 1/5/2023 4:56pm-->
+    <div class="card mb-3" > <!--style="width: 18rem;"-->
+    <img src="<%= campground.image%>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><%= campground.title%></h5><!--Card title--> 
+      <p class="card-text"><%= campground.description %></p>
+    </div> <!--Some quick example text to build on the card title and make up the bulk of the card's content.-->
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item text-muted"><%= campground.location %></li><!--An item-->
+      <li class="list-group-item">Submitted by <%= campground.author.username %></li><!--Tuesday January 3rd, 2023 4:52pm-->
+      <li class="list-group-item">$<%= campground.price %>/night</li><!--A second item-->
+      <!--<li class="list-group-item">A third item</li>-->
+    </ul>
+    <% if ( currentUser && campground.author.equals(currentUser._id)) { %> <!-- Wednesday December 28th 2022 4:58pm-->
+    <div class="card-body">
+      <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit </a><!-- Card link --> <!-- class="card-link btn btn-warning"-->
+      <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+        <button class="btn btn-danger">Delete</button>
+        </form><!-- <a href="#" class="card-link">Another link</a>-->
+    </div>
+    <% } %> <!-- Wednesday December 28th 2022 4:58pm-->
+    <div class="card-footer text-muted"> 2 Days ago son. Thursday June 23rd 2022 5:04pm
+    </div>
+  </div>
+</div>
+  <div class="col-6">
+    <% if (currentUser) { %> <!-- Monday December 28th 2022 4:58pm-->
+  <h2>Leave a review please</h2> <!--Thursday October 6th, 2022 4:52pm-->
+  <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate> <!--Friday October 7th, 2022 4:35pm-->
+  <!--  <div class="mb-3"> form action=""--> <!--Thursday October 13th, 2022 5:12pmpm
+        <label class="form-label" for="rating">Rating</label>
+        <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">--><!--<input/> label label
+        </div>-->
+
+<fieldset class="starability-basic">
+  <legend>First rating:</legend>
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." /> <!--0 Friday February 17th, 2023 5:52pm-->
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+      <div class="mb-3"> <!--Wednesday October 5th, 2022 4:44pm-->
+          <label class="form-label" for="body">Review Text</label>
+          <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+          <div class="valid-feedback">
+            Looks Good!
+      </div>
+    </div>
+      <button class="btn btn-success">Submit</button>
+    </form>
+    <% } %>
+    <% for(let review of campground.reviews) { %>
+      <div class="card mb-3"><!--3-->
+      <div class="card-body">
+            <h5 class="card-title">Rating: <%= review.author.username %></h5><!--Card title review.rating --> 
+            <h3>Rated element name</h3>
+            <p class="starability-result" data-rating="review.rating"><!--I removed 3 and added review.rating Monday February 20th, 2023 5:36 PM-->
+              Rated: <%= review.rating %>   stars
+            </p>
+            <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %> </h6> <!--Wednesday January 11th 2023 4:36 pm also added username Thursday January 26th, 2023 5:00pm -->
+            <p class="card-text">Review: <%= review.body %></p>
+            <% if (currentUser && review.author.equals(currentUser._id)) {%>
+            <form action="/campgrounds/<%=campground._id%>/reviews/<%= review._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-sm btn-danger">Delete</button> <!-- <p>Rating: <%=  %></p>
+            <p>Review: <%=  %></p>
+          </form> -->
+        </form>
+          <% } %>  
+      </div>
+     </div> 
+    <% } %>
+</div>
+</div>
+
+ <!-- Thursday February 9th, 2023 
+<fieldset class="starability-basic">
+  <legend>First rating:</legend>
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+  <input type="radio" id="second-rate1" name="review[rating]" value="1" />
+  <label for="second-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="second-rate2" name="review[rating]" value="2" />
+  <label for="second-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="second-rate3" name="review[rating]" value="3" />
+  <label for="second-rate3" title="Average">3 stars</label>
+  <input type="radio" id="second-rate4" name="review[rating]" value="4" />
+  <label for="second-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="second-rate5" name="review[rating]" value="5" />
+  <label for="second-rate5" title="Amazing">5 stars</label>
+</fieldset>-->
+<!-- Wednesday May 4th 2022 4:44pm-->
+ <!--campground.title
+  campground.description
+    <h1><= campground.title %></h1>
+    <h2><= campground.location %></h2> !--Adding edits 5/9/2022 4:44pm
+    <img src="<= campground.image%>" alt=""> Just put % back if needed. 6/23/2022
+    <p><= campground.description %></p> 
+    <p> <a href="/campgrounds/<=campground._id%>/edit">Edit</a>
+    </p>
+    <p>
+        <form action="/campgrounds/<=campground._id%>?_method=DELETE" method="POST">
+        <button>Delete</button>
+        </form>
+    </p>
+    <footer><!--Adding edits 5/10/2022 5:55pm
+        <a href="/campgrounds">All campgrounds</a>
+    </footer> -->
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+    </head>
+<body>
+-->  <!--https://images.unsplash.com/photo-1473773508845-188df298d2d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHw0ODQzNTF8fHx8fHx8MTY1NDAyOTI1NQ&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, dolorum laudantium accusamus minima facilis nam asperiores placeat. Aspernatur, dolore suscipit perferendis enim soluta, maxime quos exercitationem, cum commodi nam dicta.-->
+    
+<!--</body>
+</html>-->

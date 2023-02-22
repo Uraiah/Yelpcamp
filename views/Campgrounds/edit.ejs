@@ -1,0 +1,79 @@
+<% layout('layouts/boilerplate')%><!--Wednesday June 22nd, 2022 4:44pm-->
+<div class="row">
+    <h1 class="text-center">Edit Campground</h1>
+    <div class="col-6 offset-3"> <!-- This is to center it and add by three-->       
+        <form action="/campgrounds/<%= campground.id%>?_method=PUT" method="POST" novalidate class="validated-form">
+    <div class="mb-3"><!-- Margin bottom by three-->
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" id="title" name="campground[title]" value="<%=campground.title  %> "required> <!--Moved requiredThursday January 26, 2023 4:13pm-->
+        <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:16pm-->
+        </div>
+    </div>
+    <div class="mb-3"><!-- Margin bottom by three-->
+        <label class="form-label" for="location">Location</label>
+        <input class="form-control" type="text" id="location" name="campground[location]" value="<%=campground.location  %> "required>
+        <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:18pm-->
+        </div>
+    </div>
+    <div class="mb-3"><!-- Margin bottom by three-->
+        <label class="form-label" for="image">Image URL</label>
+        <input class="form-control" type="text" id="image" name="campground[image]"  value="<%=campground.image  %> "required> <!--Added Thursday January 26, 2023 4:19pm-->
+        <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:13pm-->
+        </div>
+    </div>
+
+    <div class="mb-3">
+    <label class="form-label" for="price">Campground Price</label>
+    <div class="input-group ">
+        <span class="input-group-text" id="price-label">$</span>
+        <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
+             aria-describedby="price-label" name="campground[price]" value="<%=campground.price  %> "required> <!--Username basic-addon1--> <!--Thursday January 26th, 2023 4:21pm-->
+             <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:21pm-->
+             </div>
+      </div>
+    </div>
+
+    <div class="mb-3"><!-- Margin bottom by three-->
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="campground[description]"
+        required><%=campground.description%> </textarea> <!--<input>--><!--forgot the> after required Friday January 13th, 2023 4:58 pm-->
+        <div class="valid-feedback"> <!-- Added {Again? }Friday January 13th, 2023 4:58 pm-->
+            Looks good!
+            </div>
+    </div>
+     <div class="mb-3">
+        <button class="btn btn-info">Update Add Campground </button> <!--Removed february 16th, 2023 5:15pm success I put that instead of a info button--> 
+</div>
+</form>
+<a href="/campgrounds"> Back To All Campgrounds</a>   <!-- Modified and added 'return to' Friday January 13th, 2023 4:58 pm-->
+    </div>
+</div>
+
+<!--<!DOCTYPE html> Edited out Thursday February 16th, 2023 4:58pm
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Edit Campground</title>  Edits Monday May 9, 2022 4:44pm-->
+<!--</head>
+
+<body>
+    <h1>Edit Campground</h1>
+    <form action="/campgrounds/<%= campground.id%>?_method=PUT" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="campground[title]" value="<%=campground.title  %> ">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <input type="text" id="location" name="campground[location]" value="<%=campground.location  %> ">
+        </div>
+        <button>Add Campground</button>
+    </form>
+    <a href="/campgrounds/<%= campground.id%>">Back To Campground</a>  
+
+</body>
+
+</html> -->
