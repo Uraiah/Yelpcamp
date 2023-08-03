@@ -4,7 +4,9 @@
 <div class="alert alert-danger" role="alert">
     <h4 class="alert-heading">Well done!</h4>
     <h4 class="alert-heading"><%=err.message%></h4>
+    <% if (process.env.NODE_ENV !== "production") { %> <!--Thursday June 15th, 2023 4:36pm--><!--Added a {} to help fix the error Tuesday June 20th, 2023 4:29pm-->
     <p><%= err.stack %></p> <!--Added this one Thursday January 26th, 2023 5:37 PM What does it do?-->
+    <% } %> <!--Thursday June 15th, 2023 4:36pm-->
     <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
     <hr>
     <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>

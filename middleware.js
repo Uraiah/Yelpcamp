@@ -14,6 +14,7 @@ module.exports.isLoggedIn = (req, res, next) => {//Monday December 19th, 2022 4:
 } 
 module.exports.validateCampground = (req, res, next) => { //Tuesday November 1st, 2022 4:40pm
     const { error }  = campgroundSchema.validate(req.body); 
+    console.log(req.body); // Monday April 10th, 2023 5:04pm
          if (error) {
             const msg = error.details.map(el => el.message).join(',') //I had to add this
             throw new ExpressError(msg, 400) 

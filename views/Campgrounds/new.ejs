@@ -1,9 +1,10 @@
 <% layout('layouts/boilerplate') %> <!--Wednesday May 4th, 2022 4:59pm-->
     <div class="row">
         <h1 class="text-center">New Campground</h1>
-        <div class="col-6 offset-3"> <!-- This is to center it and add by three-->       
-    <form action="/campgrounds" method="POST" novalidate class="validated-form"> <!--Added Validated form Thursday January 26, 2023 4:31pm-->
-        <div class="mb-3"><!-- Margin bottom by three-->
+        <!--<div class="col-6 offset-3">  This is to center it and add by three-->
+          <div class="col-md-6 offset-md-3"> <!-- Added and edited Wednesday June 7th, 2023 4:43pm This is to center it and add by three-->       
+    <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data"> <!--Added Validated form Thursday January 26, 2023 4:31pm-->
+        <div class="mb-3"><!-- Margin bottom by three-->                        <!-- Added Wednesday March 15th, 2023 4:53pm-->
             <label class="form-label" for="title">Title</label>
             <input class="form-control" type="text" id="title" name="campground[title]" required>
             <div class="valid-feedback"> <!--Added Wednesday July 20th 2022-->
@@ -17,13 +18,20 @@
                 Looks Good!
             </div>
         </div>
-        <div class="mb-3"><!-- Margin bottom by three-->
-            <label class="form-label" for="image">Image URL</label>
+
+
+        <!-- <div class="mb-3">
+          <label for="formFile" class="form-label">Default file input example</label>
+          <input class="form-control" type="file" id="formFile">
+        </div> -->
+        <!--<input type="file" name="image" id="" multiple>  This allows you to upload multiple files Monday March 13th, 2023 5:19pm -->
+        <!--<div class="mb-3"> Margin bottom by three-->
+            <!--<label class="form-label" for="image">Image URL</label>
             <input class="form-control" type="text" id="image" name="campground[image]" required>
-            <div class="valid-feedback"> <!--Added Wednesday July 20th 2022-->
+            <div class="valid-feedback"> Added Wednesday July 20th 2022
                 Looks Good!
             </div>
-        </div>
+        </div>-->
 
         <div class="mb-3">
         <label class="form-label" for="price">Campground Price</label>
@@ -43,6 +51,15 @@
             <div class="valid-feedback"> <!--Added Wednesday July 20th 2022-->
                 Looks Good!
             </div>
+        </div>
+        <div class="mb-3">
+          <div class="form-file custom-file">
+              <input type="file" class="form-file-input" id="image" name="image" multiple> <!--Wednesday March 22nd, 2023 :44pm? -->
+              <label class="form-file-label" for="image"><!-- I accidently call it from instead of form. Changed Turesday April 11th, 2023 4:39pm--> <!--Thursday March 23rd, 2023 4:23pm-->
+                 <span class="form-file-text custom-file-label">Add more image(s)...</span> <!--Choose file...-->
+                 <span class="form-file-button">Browse</span>
+               </label>
+          </div>
         </div>
          <div class="mb-3">
             <button class="btn btn-success">Add Campground</button>
@@ -103,4 +120,57 @@
     <a href="/campgrounds">All campgrounds</a>
         </div>
     </div> 
+ Tuesday March 1th, 2023 6:39pm
+    reviews: [],
+  _id: 6410e2ba62a1356a3c03e21d,
+  title: 'Elden Ring',
+  location: 'New Hampshire, Wyoming',
+  price: 85,
+  description: 'Elden ring boss.',
+  images: [
+    {
+      _id: 6410e2ba62a1356a3c03e21e,
+      url: 'https://res.cloudinary.com/dm4lfb0xf/image/upload/v1678828216/YelpCamp/fagygt9nhcvzpxhhv2n2.jpg',
+      filename: 'YelpCamp/fagygt9nhcvzpxhhv2n2'
+    },
+    {
+      _id: 6410e2ba62a1356a3c03e21f,
+      url: 'https://res.cloudinary.com/dm4lfb0xf/image/upload/v1678828216/YelpCamp/unm3bm0k5ekpcpb3orfe.jpg',
+      filename: 'YelpCamp/unm3bm0k5ekpcpb3orfe'
+    },
+    {
+      _id: 6410e2ba62a1356a3c03e220,
+      url: 'https://res.cloudinary.com/dm4lfb0xf/image/upload/v1678828217/YelpCamp/rfuwb9ysprb3q6myvq2s.jpg',
+      filename: 'YelpCamp/rfuwb9ysprb3q6myvq2s'
+    },
+    {
+      _id: 6410e2ba62a1356a3c03e221,
+      url: 'https://res.cloudinary.com/dm4lfb0xf/image/upload/v1678828217/YelpCamp/dcfvkmiprr2yr9i3uhtk.jpg',
+      filename: 'YelpCamp/dcfvkmiprr2yr9i3uhtk'
+    },
+    {
+      _id: 6410e2ba62a1356a3c03e222,
+      url: 'https://res.cloudinary.com/dm4lfb0xf/image/upload/v1678828218/YelpCamp/tqfto0eseegm1euuu4aw.jpg',
+      filename: 'YelpCamp/tqfto0eseegm1euuu4aw'
+    },
+    {
+      _id: 6410e2ba62a1356a3c03e223,
+      url: 'https://res.cloudinary.com/dm4lfb0xf/image/upload/v1678828218/YelpCamp/t2c5mnumstrovtmar9n8.jpg',
+      filename: 'YelpCamp/t2c5mnumstrovtmar9n8'
+    }
+  ],
+  author: 63c7189352fe956154d925a2,
+  __v: 0
+}
+Session {
+  cookie: {
+    path: '/',
+    _expires: 2023-03-21T21:10:18.522Z,
+    originalMaxAge: 604799999,
+    httpOnly: true
+  },
+  passport: { user: 'greg' },
+  flash: { success: [ 'Successfully made a new campground!' ] }
+}
+
 --> 

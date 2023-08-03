@@ -1,3 +1,10 @@
+if (process.env.NODE_ENV != "production") { //Tuesday February 28th, 2023 4:28pm 
+    require('dotenv').config(); //This is an environment variable. // Wednesday March 1st 2023 4:26pm
+}
+
+console.log(process.env.SECRET) //Tuesday February 28th, 2023 4:41pm 
+console.log(process.env.API_key) //Tuesday February 28th, 2023 4:41pm 
+
 const express = require('express'); //Tuesday April 12th 2022 5:13 pm
 const path = require('path');
 const mongoose = require('mongoose');
@@ -9,13 +16,21 @@ const methodOverride = require('method-override'); //Monday July 25th, 2022 5:09
 const passport = require('passport'); //Moved here THursday January 5th 2023 4:31 PM
 const LocalStrategy = require('passport-local');
 const User = require('./models/user'); //Tuesday November 29th, 2022 4:57pm
+const helmet = require('helmet'); //Thursday June 15th, 2023 4:36pm
 
 //const passport = require('passport'); //This was here THursday January 5th 2023 4:31 PM
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds'); //changed from campgrounds //Tuesday November 29th, 2022 5:01pm
 const reviewRoutes = require('./routes/reviews'); //changed from routes //Tuesday November 29th, 2022 5:01pm // Apparently this './models/review' was the cause of the problem. Tuesday February 21st, 2023 5:25 pm
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+//const MongoDBStore = require('connect-mongo');//(session); //Monday June 26th, 2023 4:48pm
+
+const mongoSanitize = require('express-mongo-sanitize'); //Added June 12th, 2023 4:39pm
+const MongoStore = require('connect-mongo'); // Un-commented June 28th, 2023 4:36pm
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'; //Monday June 26th, 2023 
+//const dbUrl = process.env.DB_URL //Added Friday June 23rd, 2023 5:09pm
+//mongoose.connect('mongodb://localhost:27017/yelp-camp', {//Moved this on Friday June 23rd, 2023 5:11pm dbUrl
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true, //I left out the 'i' Thursday August 4th, 2022 5:08 PM
@@ -38,8 +53,32 @@ app.use(express.urlencoded({ extended: true } )); //Parse the body shows the inf
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 
+// To remove data using these defaults, or, to replace these prohibited characters with _, use:
+app.use( //Friday June 9th, 2023 4:46pm
+    mongoSanitize({
+      replaceWith: '_',
+    }),
+  );
+
+  const secret = process.SECRET || 'thisshouldbeabettersecret!'; //Added either or password to activate the password Thursday June 29th, 2023 4:44pm
+//Wednesday June 28th, 2023 4:30pm I removed MongoDBStore and added MongoStore.create
+  const store = MongoStore.create({ //Monday June 26th, 2023 5:22pm  removed new on June 28th, 2023 4:41pm
+    mongoUrl: dbUrl, // I changed the url into mongoUrl June 28th, 2023 4:47pm
+
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+            secret, //: 'thisshouldbeabettersecret!',
+    }
+  });
+
+  store.on("error", function (e) { // Added and e is a print Tuesday June 27th, 2023 4:40pm 
+    console.log("SESSION STORE ERROR", e)
+  }) 
+
 const sessionConfig = { //Monday November 7th, 2022 5:05pm
-    secret: 'thisshouldbeabettersecret!',
+    store, //Stores the informmation, probably Tuesday June 27th, 2023 4:44pm 
+    name: 'session', // //Removed password Thursday June 29th, 2023 4:54pm
+    secret, //: 'thisshouldbeabettersecret!', //Removed password Thursday June 29th, 2023 4:54pm
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -50,6 +89,51 @@ const sessionConfig = { //Monday November 7th, 2022 5:05pm
 }
 app.use(session(sessionConfig))
 app.use(flash());
+app.use(helmet({ contentSecurityPolicy: false})); //Thursday June 15th, 2023 5:09pm
+//Friday June 16th, 2023 4:52pm
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+const fontSrcUrls = [];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/dm4lfb0xf/", // I added the link to my cloudinart account That is what I missed Thursday June 22nd, 2023 5:09pm //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! colts' account douqbebwk
+                "https://images.unsplash.com/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 //Tuesday November 29th, 2022 4:30pm
 app.use(passport.initialize()); //Hello Passport
@@ -60,7 +144,8 @@ passport.serializeUser(User.serializeUser()); //Added Thursday December 15th, 20
 passport.deserializeUser(User.deserializeUser()); //This, and the last code may have been the reason the code wasn't working 
 
 app.use((req, res, next) => { //When you flash something, it would show a message.
-    console.log(req.session) //Friday December 23rd 2022 4:44 pm //Prints the entire session.
+    console.log(req.query); //Friday June 9th, 2023 4:46pm
+    //console.log(req.session) //Friday December 23rd 2022 4:44 pm //Prints the entire session.
     res.locals.currentUser = req.user; //Thursday December 22nd 2022 4:51pm
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -98,7 +183,7 @@ app.listen(3000, () => {
     console.log('Serving on port 3000')
 })
 
-
+// az3GqoOcEJPSAWGl Friday June 23rd, 2023 5:04pm mongodb+srv://our-first-user:<password>@cluster0.cqutyyk.mongodb.net/?retryWrites=true&w=majority
 //const { campgroundSchema, reviewSchema } = require('./schemas.js');
 //const Campground = require('./models/campground');
 //const Review = require('./models/review');

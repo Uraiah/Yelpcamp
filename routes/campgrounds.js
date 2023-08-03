@@ -4,20 +4,27 @@ const campgrounds = require('../controllers/campgrounds'); // Wednesday February
 const catchAsync = require('../utils/catchAsync'); //Tuesday November 1st, 2022 4:39pm
 //const ExpressError = require('../utils/ExpressError');
 //const { campgroundSchema} = require('../schemas.js'); //, reviewSchema 
-const {isLoggedIn, isAuthor, validateCampground} = require ('../middleware') // added Monday December 19th, 2022 4:38pm.
+const { isLoggedIn, isAuthor, validateCampground } = require ('../middleware'); // added Monday December 19th, 2022 4:38pm.
+const multer = require('multer'); //Friday February 24th, 2023 5:20pm
+const { storage } = require('../cloudinary'); // Wednesday March 1st 2023 4:26pm
+const upload = multer({ storage }); //Friday February 24th, 2023 5:20pm //March 8th, 2023 5:13pm removed this dest: 'uploads/'
 
 const Campground = require('../models/campground');
 //const { route, put } = require('./reviews');
 
 router.route('/')
     .get(catchAsync(campgrounds.index)) // moved Friday February 3rd, 2023 4:38pm
-    .post( isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground)); // copied and added Wednesday February 1st, 2023 5:03pm
-
+    .post( isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground)); // copied and added Wednesday February 1st, 2023 5:03pm //
+     //Upload the image first and then the campground Thursday march 2nd, 2023 4:56pm
+    /*.post(upload.array('image'), (req, res) => { //Friday February 24th, 2023 5:25pm You can add an array to give you multiple files.
+        console.log(req.body, req.file); //Friday February 24th, 2023 5:20pm
+        res.send("It Worked?!?")//Friday February 24th, 2023 5:20pm
+    })*/
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);// moved  Friday February 3rd, 2023 4:44pm
 
 router.route('/:id')
     .get(catchAsync(campgrounds.showCampground)) // copied and added Friday February 3rd, 2023 4:45pm
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground)) // copied and added Wednesday February 1st, 2023 4:58pm
+    .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground)) // copied and added Wednesday February 1st, 2023 4:58pm //Are you the author? Are you logged in? Let's validate that. Okay, you are good to go. Now upload a image Monday March 20th, 2023 4:30pm
     .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground)); // copied and added Wednesday February 1st, 2023 5:05pm // Tuesday February 7th, 2023 4:30 pm I forgot the isauthor part.
 
  router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm)); // copied and added Wednesday February 1st, 2023 4:58pm Commented outFriday February 3rd, 2023 4:53pm

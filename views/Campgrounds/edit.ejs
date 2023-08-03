@@ -1,11 +1,12 @@
 <% layout('layouts/boilerplate')%><!--Wednesday June 22nd, 2022 4:44pm-->
 <div class="row">
     <h1 class="text-center">Edit Campground</h1>
-    <div class="col-6 offset-3"> <!-- This is to center it and add by three-->       
-        <form action="/campgrounds/<%= campground.id%>?_method=PUT" method="POST" novalidate class="validated-form">
+    <!-- <div class="col-6 offset-3"> This is to center it and add by three-->       
+        <div class="col-md-6 offset-md-3"> <!-- Added and edited Wednesday June 7th, 2023 4:43pm This is to center it and add by three-->
+        <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
     <div class="mb-3"><!-- Margin bottom by three-->
         <label class="form-label" for="title">Title</label>
-        <input class="form-control" type="text" id="title" name="campground[title]" value="<%=campground.title  %> "required> <!--Moved requiredThursday January 26, 2023 4:13pm-->
+        <input class="form-control" type="text" id="title" name="campground[title]" value="<%=campground.title  %>" required> <!--Moved requiredThursday January 26, 2023 4:13pm-->
         <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:16pm-->
         </div>
     </div>
@@ -15,12 +16,15 @@
         <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:18pm-->
         </div>
     </div>
-    <div class="mb-3"><!-- Margin bottom by three-->
-        <label class="form-label" for="image">Image URL</label>
-        <input class="form-control" type="text" id="image" name="campground[image]"  value="<%=campground.image  %> "required> <!--Added Thursday January 26, 2023 4:19pm-->
-        <div class="valid-feedback"> Looks good! <!--Added Thursday January 26, 2023 4:13pm-->
+   <!-- <div class="mb-3"> Friday March 17, 2023 4:41 PM-->
+    <!--    <label class="form-label" for="image">Add Images</label>
+        <input type="file" id="image" multiple> Added Thursday January 26, 2023 4:19pm
+    </div>-->
+       <!-- <label class="form-label" for="image">Image URL</label>
+        <input class="form-control" type="text" id="image" name="campground[image]"  value="<%=campground.image  %> "required> Added Thursday January 26, 2023 4:19pm-->
+       <!-- <div class="valid-feedback"> Looks good! Added Thursday January 26, 2023 4:13pm
         </div>
-    </div>
+    </div>-->
 
     <div class="mb-3">
     <label class="form-label" for="price">Campground Price</label>
@@ -41,11 +45,30 @@
             Looks good!
             </div>
     </div>
+    <div class="mb-3"><!--Wednesday March 22nd, 2023 4:22pm--> 
+        <div class="form-file custom-file">
+            <input type="file" class="form-file-input" id="image" name="image" multiple> <!--Removed class from the input Monday April 3rd, 2023 5:02pm-->
+            <label class="form-file-label" for="image"> <!--I accidently put in this '-text custom-file' I removed it now. Monday April 3rd, 2023 5:30 pm-->
+                <span class="form-file-text custom-file-label" >Add more image(s)... </span>
+                <span class="form-file-button">Browse</span>
+            </label>
+        </div>
+    </div>  
+
+    <div class="mb-3"> <!-- Friday March 24th, 2023 4:19 pm-->
+        <% campground.images.forEach(function(img, i){ %>
+            <img src="<%=img.thumbnail %>" class="img-thumbnail" alt=""> <!-- removed '.url' and replaced it with thumbnail// Monday March 27th, 2023 5:10pm-->
+        <div class="form-check-inline">
+            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+        </div> 
+    <label for="image-<%=i%>">Delete?</label>
+     <% }) %>
+    </div> 
      <div class="mb-3">
         <button class="btn btn-info">Update Add Campground </button> <!--Removed february 16th, 2023 5:15pm success I put that instead of a info button--> 
 </div>
 </form>
-<a href="/campgrounds"> Back To All Campgrounds</a>   <!-- Modified and added 'return to' Friday January 13th, 2023 4:58 pm-->
+<a href="/campgrounds/<%= campground._id%>"> Back To All Campgrounds</a>   <!-- Modified and added 'return to' Friday January 13th, 2023 4:58 pm m4/13/2023-->
     </div>
 </div>
 

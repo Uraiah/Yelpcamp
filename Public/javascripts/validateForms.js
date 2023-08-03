@@ -1,5 +1,7 @@
 (function () { // Friday December 2nd 2022 5:03PM
     'use strict'
+
+    bsCustomFileInput.init() //Wednesday March 22nd, 2023 4:22pm /Bootstrap 4 custom file input dynamic with no dependencies.
     
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
    const forms = document.querySelectorAll('.validated-form')

@@ -1,12 +1,29 @@
 <!DOCTYPE html> <!--Tuesday May 24th, 2022 4:56pm-->
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yelp Camp Document Boilerplate!!!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" 
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"><!-- Friday June 16th, 2023 5:25pm -->
+ <!-- I was able to find out why this wasn't working. I just had to make the new link and I think it works now. Monday April 17th, 2023 5:27pm 
+    here's the link: https://getbootstrap.com/docs/5.0/getting-started/introduction/ -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">-->
+    <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script> <!--Added crossorigin="anonymous" Tuesday June 20th, 2023 5:09pm-->
+
+    
+<script crossorigin="anonymous" src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script> <!--Thursday April 27th, 2023 4:56pm This is the Javascript code for the maps--><!--Added crossorigin="anonymous" Tuesday June 20th, 2023 5:16pm-->
+<link crossorigin="anonymous" href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' /><!--Added crossorigin="anonymous" Tuesday June 20th, 2023 5:11pm-->
+<link rel="stylesheet" href="/stylesheets/app.css"><!-- Added a new link to the new app.css Wednesday June 7th, 2023 5:00pm-->
+
 </head>
+
 <body class="d-flex flex-column vh-100"> <!-- Thursday May 26th 2022 4:48pm-->
     <!-- Friday May 27th, 2022 4:36pm-->
     <%- include('../partials/navbar') %> 
@@ -16,14 +33,12 @@
     <%- body %> 
     </main>
     <%- include('../partials/footer') %> <!-- Wednesday December 14th 2022 4:42pm-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-        crossorigin="anonymous"></script>
-    <script src='/javascripts/validateForms.js'></script>
+            integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+            crossorigin="anonymous"></script>
     <!-- <h1>AFTER</h1>-->
 </body>
 </html>

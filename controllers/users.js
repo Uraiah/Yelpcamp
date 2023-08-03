@@ -29,9 +29,18 @@ module.exports.login = (req, res) => { //Thursday February 2nd  2023 5:15pm
     delete req.session.returnTo;
     res.redirect(redirectUrl);
    }
-/**/ 
+   module.exports.logout = (req, res, next) => { // I was able to fix the logout function finally April 21st, 2023 5:19pm 
+    req.logout(function (err) { //I had to add a function and error
+      if (err) { //I added a if statement.
+        return next(err); // Added a return.
+      } //This way, I was able to finally fix the logout.
+      req.flash('success', 'Goodbye!');
+      res.redirect('/campgrounds');
+    });
+  };
+/* 
 module.exports.logout =  ( req, res) => { //Thursday February 2nd  2023 5:25pm
     req.logout();
     req.flash('success', "Goodbye!");
     res.redirect('/campgrounds');
-}
+}*/
