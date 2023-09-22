@@ -27,15 +27,18 @@ const reviewRoutes = require('./routes/reviews'); //changed from routes //Tuesda
 
 const mongoSanitize = require('express-mongo-sanitize'); //Added June 12th, 2023 4:39pm
 const MongoStore = require('connect-mongo'); // Un-commented June 28th, 2023 4:36pm
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'; //Monday June 26th, 2023 
+//const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'; //Monday June 26th, 2023 
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp'; //Monday September 18th, 2023 4:32pm
 //const dbUrl = process.env.DB_URL //Added Friday June 23rd, 2023 5:09pm
 //mongoose.connect('mongodb://localhost:27017/yelp-camp', {//Moved this on Friday June 23rd, 2023 5:11pm dbUrl
-mongoose.connect(dbUrl, {
+/*mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true, //I left out the 'i' Thursday August 4th, 2022 5:08 PM
     useFindAndModify: false
-});
+});*/
+mongoose.set('strictQuery', true);
+mongoose.connect(dbUrl);//Monday September 18th, 2023 4:32pm
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
