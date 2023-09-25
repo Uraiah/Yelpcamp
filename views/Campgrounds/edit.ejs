@@ -56,7 +56,7 @@
     </div>  
 
     <div class="mb-3"> <!-- Friday March 24th, 2023 4:19 pm-->
-        <% campground.images.forEach(function(img, i){ %>
+        <% campground.images.forEach(function(img, i) { %>
             <img src="<%=img.thumbnail %>" class="img-thumbnail" alt=""> <!-- removed '.url' and replaced it with thumbnail// Monday March 27th, 2023 5:10pm-->
         <div class="form-check-inline">
             <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
