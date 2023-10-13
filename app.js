@@ -37,6 +37,7 @@ const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp'; //Mon
     useUnifiedTopology: true, //I left out the 'i' Thursday August 4th, 2022 5:08 PM
     useFindAndModify: false
 });*/
+console.log(`Database connection string currently set to: ${process.env.DB_URL}`); //Added Tuesday October 10th, 2023 4:44pm
 mongoose.set('strictQuery', true);
 mongoose.connect(dbUrl);//Monday September 18th, 2023 4:32pm
 
